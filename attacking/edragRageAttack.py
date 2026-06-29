@@ -1,4 +1,4 @@
-from ..upgrading.simpleActions import Actions
+from ..tools.simpleActions import Actions
 
 # Galaxy Tab S8 - 2560x1600
 length = 2560
@@ -15,7 +15,7 @@ def attack_sequence():
     
     # combine gold and elixir values to attack if 600k+
     # if not, skip
-    
+
     # CV map the base with red-border outline
 
     # deploy edrags

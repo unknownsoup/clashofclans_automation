@@ -1,9 +1,9 @@
-from clashbot.upgrading.simpleActions import Actions
+from clashbot.tools.simpleActions import Actions
 import cv2
 
 def main():
 
-    
+
 
 
     return 0

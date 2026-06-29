@@ -1,6 +1,6 @@
 import subprocess
 import time
-import clashbot.upgrading.simpleActions as simpleActions
+import clashbot.tools.simpleActions as simpleActions
 
 '''# Samsung S23 - 1080x2340
 length = 2340
