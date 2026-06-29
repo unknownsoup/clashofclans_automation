@@ -4,6 +4,8 @@ import time
 import numpy as np
 import cv2
 import datetime
+import pytesseract
+from PIL import Image
 
 # Tab S8
 DEVICE_ID = "R52T501DACZ"
@@ -13,12 +15,14 @@ ICONS_FOLDER = "/home/braedon/Projects/clashbot/icons"
 # Samsung S23 - 1080x2340
 length = 2340
 width = 1080
+
 class Actions:
     def tap(x, y):
         subprocess.run(
             ["adb", "-s", DEVICE_ID, "shell", "input", "tap", str(x), str(y)]
         )
         time.sleep(0.7)
+
 
     def swipe(x1, y1, x2, y2, duration_ms=600):
         subprocess.run([
@@ -29,12 +33,18 @@ class Actions:
         ])
         time.sleep(0.9)
 
+
     def drag(x1, y1, x2, y2, duration_ms=1000):
         """
+        not implemented yet
         """
         return 0
 
+
     def screenshot():
+        """
+        screen = Actions.screenshot()
+        """
         result = subprocess.run(
             ["adb", "-s", DEVICE_ID, "exec-out", "screencap", "-p"],
             capture_output=True
@@ -43,8 +53,12 @@ class Actions:
         img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
         return img
 
-    def save_screenshot(filename=None, save_path=None):
+
+    def save_screenshot(filename=None, save_path=None, image=None):
         """
+        Takes a new screenshot, then saves it. You can also take an image, then save
+        by utilizing the 'image' arg. 
+
         If filename is none, filename = datetime. 
         
         save_path=None Saves to clashbot/screenshots/
@@ -55,15 +69,20 @@ class Actions:
         if save_path: save_path = save_path
         else: save_path = os.path.join(PROJECT_FOLDER, filename)
         print(save_path)
-        result = subprocess.run(
-            ["adb", "-s", DEVICE_ID, "exec-out", "screencap", "-p"],
-            capture_output=True
-        )
+
+        if image is None:
+            result = subprocess.run(
+                ["adb", "-s", DEVICE_ID, "exec-out", "screencap", "-p"],
+                capture_output=True
+            )
+        else: result = image
+
         with open(save_path, "wb") as f:
             f.write(result.stdout)
         
         print(f"Screenshot saved to {save_path}")
         return save_path
+
 
     def findIcon(screenshot, template_path, threshold=0.8, returnCords=False):
         """
@@ -97,6 +116,19 @@ class Actions:
 
         return None
     
-    
+
+    def read_text_from_region(screenshot, x1, y1, x2, y2):
+        """
+        returns text strip
+        """
+        # crop to just the region with the number
+        region = screenshot[y1:y2, x1:x2]
+        
+        # convert to PIL format for tesseract
+        pil_image = Image.fromarray(cv2.cvtColor(region, cv2.COLOR_BGR2RGB))
+        
+        text = pytesseract.image_to_string(pil_image, config='--psm 7 digits')
+        return text.strip()
+        
 
     
