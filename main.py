@@ -1,11 +1,11 @@
 from clashbot.tools.simpleActions import Actions
+from clashbot.attacking.edragRageAttack import begin_attack_sequence, find_base
 import cv2
 
 def main():
     
-    screen = Actions.screenshot()
-    gold_count = Actions.read_text_from_region(screenshot=screen, x1=0, y1=72, x2=314, y2=118)
-    print(gold_count)
+    begin_attack_sequence()
+    find_base()
 
     return 0
 

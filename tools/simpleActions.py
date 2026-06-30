@@ -129,6 +129,25 @@ class Actions:
         
         text = pytesseract.image_to_string(pil_image, config='--psm 7 digits')
         return text.strip()
+    
+    
+    def clean_ocr_number(raw_text):
+        # remove all periods
+        no_periods = raw_text.replace('.', '')
+        
+        # split into chunks by whitespace
+        chunks = no_periods.split()
+        
+        # keep only numeric chunks
+        numeric_chunks = [c for c in chunks if c.isdigit()]
+        
+        if not numeric_chunks:
+            return 0
+        
+        # return the longest one as an int
+        longest = max(numeric_chunks, key=len)
+        return int(longest)
+
         
 
     

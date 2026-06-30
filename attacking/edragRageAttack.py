@@ -1,5 +1,5 @@
 from ..tools.simpleActions import Actions
-
+import time
 
 # Galaxy Tab S8 - 2560x1600
 length = 2560
@@ -25,12 +25,19 @@ def find_base():
         screen = Actions.screenshot()
         
         # combine gold and elixir values to attack if 600k+
-
         # if not, skip
-        total = 0
+        gold = Actions.read_text_from_region(screenshot=screen, x1=0, y1=183, x2=314, y2=228)
+        elixir = Actions.read_text_from_region(screenshot=screen, x1=0, y1=253, x2=314, y2=298)
+        gold = Actions.clean_ocr_number(gold)
+        elixir = Actions.clean_ocr_number(elixir)
+        total = gold + elixir
+    
         if total < 600000:
-            Actions.tap(2199, 1269)
-        else: break
+            Actions.tap(2199, 1269) # Next
+            time.sleep(1)
+        else: 
+            print("Base Found. Now start making attack strat")
+            break
         
         
 
