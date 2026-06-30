@@ -9,7 +9,7 @@ USING THIS BOT:
 of your dedicated device. I'm using a tablet, so the resolution size is bigger, and icons are smaller relative to the screen. The opposite would be true if you connected this to a phone. To make this process easier, you could use the pictures in the icons folder, the findIcon method, and returnCords=True.
 
 LIMITS OF THE BOT:
-- I dont see it feasible to try and enable it to attack in war. This process relies on the attack sequence being dumb simple edrag spam, and war requires calculated troop and spell placement. Same idea when considering the Clan Capital. These clan events require coordination between members that's not impossible, but a little much for a CoC bot. 
+- I dont see it feasible to try and enable it to attack in war. This bot relies on the attack sequence being dumb simple edrag spam, and war requires calculated troop and spell placement. Same idea when considering the Clan Capital. These clan events require coordination between members that's not impossible, but a little much for a CoC bot. 
 
 
 RESOURCES:
